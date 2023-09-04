@@ -1,0 +1,7 @@
+FROM debian:12.1
+
+COPY requirements.txt /tmp/requirements.txt
+
+WORKDIR /db
+
+CMD [uname]
