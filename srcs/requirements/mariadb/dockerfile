@@ -4,9 +4,8 @@ COPY requirements.txt ./requirements.txt
 
 WORKDIR /var/lib/mysql
 
-RUN apt-get update
-RUN apt-get install -y mariadb-server
-
 EXPOSE 3306
+
+ENTRYPOINT [ tools/mariadb.sh ]
 
 CMD ["mariadb"]
