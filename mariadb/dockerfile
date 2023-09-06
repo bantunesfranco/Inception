@@ -1,7 +1,12 @@
-FROM debian:12.1
+FROM debian:12.0
 
-COPY requirements.txt /tmp/requirements.txt
+COPY requirements.txt ./requirements.txt
 
-WORKDIR /db
+WORKDIR /var/lib/mysql
 
-CMD [uname]
+RUN apt-get update
+RUN apt-get install -y mariadb-server
+
+EXPOSE 3306
+
+CMD ["mariadb"]
