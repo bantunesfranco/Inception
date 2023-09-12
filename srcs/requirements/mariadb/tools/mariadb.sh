@@ -1,12 +1,11 @@
 #!/bin/bash
 
 # Installing MariaDB
-echo "Installing MariaDB";
+# echo "Installing MariaDB";
 
-apt-get update -y && apt-get upgrade -y \
-&& apt-get install mariadb-server -y mariadb-client -y;
+# apt-get update -y && apt-get upgrade -y \
+# && apt-get install mariadb-server -y mariadb-client -y;
 
-echo "Installed on $(which mariadb)"
 
 # Healthcheck
 if service mysql status >/dev/null 2>&1; then

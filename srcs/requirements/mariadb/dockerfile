@@ -1,12 +1,14 @@
 FROM debian:buster
 
-COPY ./conf/50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf
-COPY ./tools/mariadb.sh.	/tools/mariadb.sh
+EXPOSE 3306
+
+COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+COPY ./tools/mariadb.sh /mariadb.sh
+
+RUN chmod +x /mariadb.sh
 
 WORKDIR /var/lib/mysql
 
-EXPOSE 3306
+ENTRYPOINT [ "/mariadb.sh" ]
 
-# ENTRYPOINT [ tools/mariadb.sh ]
-
-# CMD ["mariadb"]
+CMD ["mariadb"]

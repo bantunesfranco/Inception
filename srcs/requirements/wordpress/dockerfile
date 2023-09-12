@@ -1,0 +1,12 @@
+FROM debian:buster
+
+EXPOSE 80
+
+COPY ./conf/wp-config.php /var/www/html/wp-config.php
+COPY ./tools/wp.sh /wp.sh
+
+RUN chmod +x /wp.sh
+
+ENTRYPOINT [ "./wp.sh" ]
+
+CMD ["/usr/sbin/php-fpm7.3 -F"]

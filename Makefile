@@ -1,18 +1,25 @@
 
-all: up
+all : up
 
-up:
-	mkdir /home/bfranco/data
-	cd srcs && docker compose up 
+up :
+	mkdir -p /workspaces/codespaces-blank/Inception/db
+	mkdir -p /workspaces/codespaces-blank/Inception/wp
+	@docker-compose -f ./srcs/docker-compose.yml up -d
 
-down:
-	cd srcs && docker compose down
+down :
+	@docker-compose -f srcs/docker-compose.yml down
 
-build:
-	cd srcs && docker compose build
+stop :
+	@docker-compose -f srcs/docker-compose.yml stop
 
-rebuild:
-	cd srcs && docker compose build --no-cache
+start :
+	@docker-compose -f srcs/docker-compose.yml start
+
+build :
+	@docker-compose -f srcs/docker-compose.yml build
+
+rebuild :
+	@docker-compose -f srcs/docker-compose.yml up --build -d
 
 ssh:
 	echo 1234 | ssh bfranco@localhost -p 2222

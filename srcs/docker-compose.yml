@@ -1,42 +1,62 @@
 version: "3.8"
 
-services:
-  # nginx:
-  #   depends_on:
-  #    - wordpress
-      # container_name: nginx
-  #   build: ./requirements/nginx
-  #   ports:
-  #     - "443:443"
-  #   env_file:
-  #     - .env
-  #   restart: always
+network:
+  inception:
+  driver: bridge
 
+volumes:
+  wp:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/bfranco/data/wordpress'
+
+  db:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/bfranco/data/mariadb'
+
+services:
   mariadb:
     container_name: mariadb
-    
+    networks:
+      - inception
     ports:
       - "3306:3306"
     volumes:
       - db:/var/lib/mysql
     env_file:
       - .env
-    restart: always
+    restart: unless-stopped
 
-  # wordpress:
-  #   depends_on:
-  #     - mariadb
-  #   container_name: wordpress
-  #   build: ./requirements/wordpress
-  #   ports:
-  #     - "80:80"
-  #   volumes:
-  #     - wp:
-  #   env_file:
-  #     - .env
-  #   restart: always
+  wordpress:
+    depends_on:
+      - mariadb
+    container_name: wordpress
+    networks:
+      - inception
+    build: ./requirements/wordpress
+    ports:
+      - "80:80"
+    volumes:
+      - wp:/var/www/html
+    env_file:
+      - .env
+    restart: on-failure
 
-volumes:
-  db:
+  nginx:
+    depends_on:
+     - wordpress
+    container_name: nginx
+    networks:
+      - inception
+    build: ./requirements/nginx
+    ports:
+      - "443:443"
+    env_file:
+      - .env
+    restart: on-failure
 
-  wp:
