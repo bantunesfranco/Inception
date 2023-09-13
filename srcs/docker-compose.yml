@@ -1,6 +1,6 @@
 version: "3.8"
 
-network:
+networks:
   inception:
   driver: bridge
 
@@ -10,14 +10,14 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/home/bfranco/data/wordpress'
+      device: '/home/bfranco/data/wp'
 
   db:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/home/bfranco/data/mariadb'
+      device: '/home/bfranco/data/db'
 
 services:
   mariadb:
