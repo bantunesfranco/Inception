@@ -1,10 +1,7 @@
 #!/bin/bash
 
 # Installing Nginx
-echo "Installing nginx";
-
-apt-get update -y && apt-get upgrade -y \
-&& apt-get install -y nginx openssl mariadb-client;
+# echo "Installing nginx";
 
 # Configuring ssl certificate
 echo "Configuring ssl certificate";

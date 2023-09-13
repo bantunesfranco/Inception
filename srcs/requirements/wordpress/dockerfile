@@ -2,11 +2,16 @@ FROM debian:buster
 
 EXPOSE 80
 
+RUN apt-get update -y && apt-get upgrade -y
+RUN apt-get install -y php7.3 php7.3-fpm php7.3-mysql curl wget
+
 COPY ./conf/wp-config.php /var/www/html/wp-config.php
 COPY ./tools/wp.sh /wp.sh
 
 RUN chmod +x /wp.sh
 
-ENTRYPOINT [ "./wp.sh" ]
+WORKDIR /var/www/html
+
+ENTRYPOINT [ "/wp.sh" ]
 
 CMD ["/usr/sbin/php-fpm7.3 -F"]

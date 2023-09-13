@@ -2,26 +2,27 @@ version: "3.8"
 
 networks:
   inception:
-  driver: bridge
+    driver: "bridge"
 
 volumes:
   wp:
     driver: local
     driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: '/home/bfranco/data/wp'
+      type: none
+      o: bind
+      device: /home/bfranco/data/wp
 
   db:
     driver: local
     driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: '/home/bfranco/data/db'
+      type: none
+      o: bind
+      device: /home/bfranco/data/db
 
 services:
   mariadb:
     container_name: mariadb
+    build: ./requirements/mariadb
     networks:
       - inception
     ports:
@@ -30,7 +31,7 @@ services:
       - db:/var/lib/mysql
     env_file:
       - .env
-    restart: unless-stopped
+    restart: on-failure
 
   wordpress:
     depends_on:
@@ -47,18 +48,18 @@ services:
       - .env
     restart: on-failure
 
-  nginx:
-    depends_on:
-     - wordpress
-    container_name: nginx
-    networks:
-      - inception
-    build: ./requirements/nginx
-    ports:
-      - "443:443"
-    volumes:
-      - wp:/var/www/html
-    env_file:
-      - .env
-    restart: on-failure
+  # nginx:
+  #   depends_on:
+  #    - wordpress
+  #   container_name: nginx
+  #   networks:
+  #     - inception
+  #   build: ./requirements/nginx
+  #   ports:
+  #     - "443:443"
+  #   volumes:
+  #     - wp:/var/www/html
+  #   env_file:
+  #     - .env
+  #   restart: on-failure
 

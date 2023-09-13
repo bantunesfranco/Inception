@@ -1,11 +1,9 @@
 #!/bin/bash
 
-# Installing MariaDB
+#Installing MariaDB
 # echo "Installing MariaDB";
 
-# apt-get update -y && apt-get upgrade -y \
-# && apt-get install mariadb-server -y mariadb-client -y;
-
+service mysql start;
 
 # Healthcheck
 if service mysql status >/dev/null 2>&1; then
@@ -27,7 +25,7 @@ fi
 
 # Create database
 
-# mysql_install_db --user=root --basedir=/home/bfranco --datadir=/home/bfranco/data
+# mysql_install_db --user=$DB_USER --basedir=/var/lib/mysql --datadir=/var/lib/mysql/inception
 
 
-# exec "$@";
+exec "$@";

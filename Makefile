@@ -4,7 +4,7 @@ all : up
 up :
 	@mkdir -p /home/bfranco/data/db
 	@mkdir -p /home/bfranco/data/wp
-	@docker-compose -f ./srcs/docker-compose.yml up -d
+	@docker-compose -f ./srcs/docker-compose.yml up
 
 down :
 	@rm -rf /home/bfranco/data/db
@@ -29,6 +29,6 @@ prune:
 	@docker system prune -af
 
 ssh:
-	echo 1234 | ssh bfranco@localhost -p 2222
+	ssh bfranco@localhost -p 2222
 
 .PHONY: all up down build rebuild
