@@ -21,7 +21,7 @@ build :
 	@docker-compose -f srcs/docker-compose.yml build
 
 rebuild :
-	@docker-compose -f srcs/docker-compose.yml up --build -d
+	@docker-compose -f srcs/docker-compose.yml up --build
 
 prune:
 	@rm -rf /home/bfranco/data/db

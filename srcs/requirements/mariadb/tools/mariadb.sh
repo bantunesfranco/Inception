@@ -25,7 +25,10 @@ fi
 
 # Create database
 
-# mysql_install_db --user=$DB_USER --basedir=/var/lib/mysql --datadir=/var/lib/mysql/inception
+scripts/mariadb-install-db --user=$DB_USER \
+	--password=$DB_PASSWORD \
+	--basedir=/var/lib/mysql
+
 
 
 exec "$@";

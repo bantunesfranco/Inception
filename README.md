@@ -6,4 +6,5 @@ This project aims to broaden your knowledge of system administration by using Do
 sudo mount -t vboxsf inception /home/bfranco/Desktop/shared
 
 ## Unmount
+
 sudo umount -f /home/bfranco/Desktop/shared

@@ -3,12 +3,12 @@
 #
 # * Basic Settings
 #
-user					= mysql
+user					= root
 pid-file				= /run/mysqld/mysqld.pid
 socket					= /run/mysqld/mysqld.sock
 port					= 3306
-basedir					= /usr
-datadir					= /var/lib/mysql
+basedir					= /var/lib/mysql
+datadir					= /var/lib/mysql/inception
 tmpdir					= /tmp
 lc-messages-dir			= /usr/share/mysql
 bind_address			= 0.0.0.0
