@@ -1,7 +1,6 @@
 #!/bin/bash
 
-#Installing MariaDB
-# echo "Installing MariaDB";
+#Starting MariaDB
 
 service mysql start;
 
@@ -23,12 +22,9 @@ else
 	echo "MariaDB is running."
 fi
 
-# Create database
+# Creating database
 
-scripts/mariadb-install-db --user=$DB_USER \
-	--password=$DB_PASSWORD \
-	--basedir=/var/lib/mysql
-
-
+mysql < /db_setup.sql
+rm -f /db_setup.sql
 
 exec "$@";

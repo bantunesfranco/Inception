@@ -2,7 +2,7 @@
 
 #Installing Wordpress
 # echo "Installing Wordpress"
-wget https://wordpress.org/wordpress-6.3.tar.gz -C /var/www/html
+wget https://wordpress.org/wordpress-6.3.tar.gz -P /var/www/html
 tar -xvf wordpress-6.3.tar.gz
 cp -r /var/www/html/wordpress/* /var/www/html
 rm -rf /var/www/html/wordpress
