@@ -9,6 +9,7 @@ COPY ./conf/wp-config.php /wp-config.php
 COPY ./tools/wp.sh /wp.sh
 
 RUN chmod +x /wp.sh
+RUN chmod 777 /wp-config.php
 
 WORKDIR /var/www/html
 

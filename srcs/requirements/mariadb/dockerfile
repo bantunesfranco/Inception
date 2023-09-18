@@ -10,9 +10,9 @@ COPY ./conf/db_setup.sql /db_setup.sql
 COPY ./tools/mariadb.sh /mariadb.sh
 
 RUN chmod +x /mariadb.sh
-
+RUN chmod 777 /db_setup.sql
 WORKDIR /var/lib/mysql
 
 ENTRYPOINT [ "/mariadb.sh" ]
 
-CMD ["mysql -u bfranco -p 1234"]
+CMD ["mysqld_safe"]

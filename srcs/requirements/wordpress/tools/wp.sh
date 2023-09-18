@@ -9,9 +9,10 @@ rm -rf /var/www/html/wordpress
 
 chown -R root:root /var/www/html
 
-wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar 
+curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+
 chmod +x wp-cli.phar
-mv wp-cli.phar /usr/local/bin/wp
+mv ./wp-cli.phar /usr/local/bin/wp
 
 #Configuring Wordpress
 echo "Configuring Wordpress"
@@ -19,7 +20,7 @@ echo "Configuring Wordpress"
 #  --dbuser=$DB_USER --dbpass=$DB_PASSWORD \
 #  --dbhost=$DB_HOST --dbcharset="utf8" \
 #  --dbcollate="utf8_general_ci"
-cp /php-config.php /var/www/html/wp-config.php
+mv  /wp-config.php /var/www/html/wp-config.php
 sed -i -r "s/user/$DB_USER/1"		/var/www/html/wp-config.php
 sed -i -r "s/pwd/$DB_PASSWORD/1"	/var/www/html/wp-config.php
 sed -i -r "s/db1/$DB_NAME/1"		/var/www/html/wp-config.php

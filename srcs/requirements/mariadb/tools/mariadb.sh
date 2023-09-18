@@ -25,6 +25,6 @@ fi
 # Creating database
 
 mysql < /db_setup.sql
-rm -f /db_setup.sql
+#rm -f /db_setup.sql
 
 exec "$@";
