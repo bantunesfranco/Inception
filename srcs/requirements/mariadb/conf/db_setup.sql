@@ -1,6 +1,6 @@
-CREATE DATABASE Base;
-CREATE USER 'bfranco'@'%' IDENTIFIED BY '1qaz';
+CREATE DATABASE inception;
+CREATE USER 'bfranco'@'%' IDENTIFIED BY '1234';
 GRANT ALL PRIVILEGES ON inception.* TO 'bfranco'@'%';
 FLUSH PRIVILEGES;
 
-ALTER USER 'root'@'localhost' IDENTIFIED BY '1234';
+ALTER USER 'root'@'localhost' IDENTIFIED BY '12345';

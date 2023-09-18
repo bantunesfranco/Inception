@@ -48,18 +48,18 @@ services:
       - .env
     restart: on-failure
 
-  # nginx:
-  #   depends_on:
-  #    - wordpress
-  #   container_name: nginx
-  #   networks:
-  #     - inception
-  #   build: ./requirements/nginx
-  #   ports:
-  #     - "443:443"
-  #   volumes:
-  #     - wp:/var/www/html
-  #   env_file:
-  #     - .env
-  #   restart: on-failure
+  nginx:
+    depends_on:
+     - wordpress
+    container_name: nginx
+    networks:
+      - inception
+    build: ./requirements/nginx
+    ports:
+      - "443:443"
+    volumes:
+      - wp:/var/www/html
+    env_file:
+      - .env
+    restart: on-failure
 

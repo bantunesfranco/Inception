@@ -15,4 +15,4 @@ WORKDIR /var/lib/mysql
 
 ENTRYPOINT [ "/mariadb.sh" ]
 
-CMD ["mysqld_safe"]
+CMD ["/usr/bin/mysqld_safe"]
