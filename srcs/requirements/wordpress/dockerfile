@@ -15,4 +15,4 @@ WORKDIR /var/www/html
 
 ENTRYPOINT [ "/wp.sh" ]
 
-CMD ["/usr/sbin/php-fpm7.3 -F"]
+CMD ["/usr/sbin/php-fpm7.3", "-F"]

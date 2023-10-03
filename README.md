@@ -8,3 +8,6 @@ sudo mount -t vboxsf inception /home/bfranco/Desktop/shared
 ## Unmount
 
 sudo umount -f /home/bfranco/Desktop/shared
+
+# VM Pwd
+1234
