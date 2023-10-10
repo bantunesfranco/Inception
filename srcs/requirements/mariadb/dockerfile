@@ -1,18 +1,24 @@
-FROM debian:buster
+FROM debian:bookworm
 
 EXPOSE 3306
+
+ENV DB_HOST=$DB_HOST
+ENV DB_NAME=$DB_NAME
+ENV DB_USER=$DB_USER
+ENV DB_PASSWORD=$DB_PASSWORD
+ENV DB_ROOT_PASSWORD=$DB_ROOT_PASSWORD
 
 RUN apt-get update -y && apt-get upgrade -y
 RUN apt-get install -y mariadb-server
  
-# COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
-COPY ./conf/db_setup.sql /db_setup.sql
+COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 COPY ./tools/mariadb.sh /mariadb.sh
 
 RUN chmod +x /mariadb.sh
-RUN chmod 777 /db_setup.sql
+RUN sed -i 's/bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/g' /etc/mysql/mariadb.conf.d/50-server.cnf
+
 WORKDIR /var/lib/mysql
 
 ENTRYPOINT [ "/mariadb.sh" ]
 
-# CMD ["mysql -u root -p$DB_PASSWORD "]
+CMD ["mysqld --user=root --datadir=/var/lib/mysql"]

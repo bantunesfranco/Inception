@@ -24,12 +24,11 @@ fi
 
 # Creating database
 
-exec mysql -u root -e "CREATE DATABASE IF NOT EXISTS inception;"
-exec mysql -u root -e "CREATE USER IF NOT EXISTS 'bfranco'@'localhost' IDENTIFIED BY '1234';"
-exec mysql -u root -e "GRANT ALL PRIVILEGES ON *.* TO 'bfranco'@'localhost';"
-exec mysql -u root -e "FLUSH PRIVILEGES;"
-exec mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '1234';"
+echo "CREATE DATABASE IF NOT EXISTS $DB_NAME;" > db-setup.sql
+echo "CREATE USER IF NOT EXISTS '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASSWORD';" >> db-setup.sql
+echo "GRANT ALL PRIVILEGES ON *.* TO '$DB_USER'@'localhost';" >> db-setup.sql
+echo "FLUSH PRIVILEGES;" >> db-setup.sql
+echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '$DB_ROOT_PASSWORD';" >> db-setup.sql
 
-# exec $@
-exec /bin/bash
+exec "$@"
 

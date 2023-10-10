@@ -20,22 +20,22 @@ volumes:
       device: /home/bfranco/data/db
 
 services:
-  # mariadb:
-    # container_name: mariadb
-    # build: ./requirements/mariadb
-    # networks:
-    #   - inception
-    # ports:
-    #   - "3306:3306"
-    # volumes:
-    #   - db:/var/lib/mysql
-    # env_file:
-    #   - .env
-    # restart: on-failure
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    networks:
+      - inception
+    ports:
+      - "3306:3306"
+    volumes:
+      - db:/var/lib/mysql
+    env_file:
+      - .env
+    restart: on-failure
 
   wordpress:
-    # depends_on:
-    #   - mariadb
+    depends_on:
+      - mariadb
     container_name: wordpress
     networks:
       - inception
@@ -48,18 +48,18 @@ services:
       - .env
     restart: on-failure
 
-  nginx:
-    depends_on:
-     - wordpress
-    container_name: nginx
-    networks:
-      - inception
-    build: ./requirements/nginx
-    ports:
-      - "443:443"
-    volumes:
-      - wp:/var/www/html
-    env_file:
-      - .env
-    restart: on-failure
+  # nginx:
+  #   depends_on:
+  #    - wordpress
+  #   container_name: nginx
+  #   networks:
+  #     - inception
+  #   build: ./requirements/nginx
+  #   ports:
+  #     - "443:443"
+  #   volumes:
+  #     - wp:/var/www/html
+  #   env_file:
+  #     - .env
+  #   restart: on-failure
 

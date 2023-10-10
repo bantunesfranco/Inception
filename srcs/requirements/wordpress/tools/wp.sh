@@ -1,45 +1,26 @@
 #!/bin/bash
 
-#Installing Wordpress
-# echo "Installing Wordpress"
-mkdir -p /run/php
-wget https://wordpress.org/wordpress-6.3.tar.gz -P /var/www/html
-tar -xf wordpress-6.3.tar.gz
-cp -r /var/www/html/wordpress/* /var/www/html
-rm -rf /var/www/html/wordpress
+while ! mysqladmin ping -h"$DB_HOST" --silent; do
+	echo "Waiting for database connection..."
+	sleep 5
+done
 
-chown -R www-data:www-data /var/www/html
+if [ ! -f /var/www/html/wp-config.php ]; then
 
-# if [ ! -f /var/www/html/wp-config.php ]; then
-curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+	wp core download --allow-root --path=/var/www/html --version=$WP_VERSION --locale=$WP_LOCALE
 
-chmod +x wp-cli.phar
-mv ./wp-cli.phar /usr/local/bin/wp
+	wp config create --allow-root --dbname=$DB_NAME \
+	 --dbuser=$DB_USER --dbpass=$DB_PASSWORD \
+	 --dbhost=$DB_HOST --dbcharset="utf8" \
+	 --dbcollate="utf8_general_ci"
 
-#Configuring Wordpress
-echo "Configuring Wordpress"
-# wp config create --allow-root --dbname=$DB_NAME \
-#  --dbuser=$DB_USER --dbpass=$DB_PASSWORD \
-#  --dbhost=$DB_HOST --dbcharset="utf8" \
-#  --dbcollate="utf8_general_ci"
-mv  /wp-config.php /var/www/html/wp-config.php
-chown -R www-data:www-data /var/www/html/wp-config.php
-#sed -i -r "s/user/$DB_USER/1"		/var/www/html/wp-config.php
-#sed -i -r "s/pwd/$DB_PASSWORD/1"	/var/www/html/wp-config.php
-#sed -i -r "s/db1/$DB_NAME/1"		/var/www/html/wp-config.php
+	wp core install --allow-root --url=$DOMAIN_NAME \
+	 --title=$WP_TITLE --admin_user=$WP_ADMIN_USER \
+	 --admin_password=$WP_ADMIN_PASSWORD --admin_email=$WP_ADMIN_EMAIL \
+	 --skip-email --skip-plugins --skip-themes
 
-# wp core install --allow-root --url=$DOMAIN_NAME \
-#  --title=$WP_TITLE --admin_user=$WP_ADMIN_USR \
-#  --admin_password=$WP_ADMIN_PWD --admin_email=$WP_ADMIN_EMAIL \
-#  --skip-email 
+	wp user create --allow-root $WP_USER $WP_EMAIL --role=author --user_pass=$WP_PASSWORD
+fi
 
-# #Creating Wordpress User
-
-# echo "Creating Wordpress User"
-# wp user create --allow-root $WP_USR $WP_EMAIL --role=author --user_pass=$WP_PWD
-# #  --path=$WP_PATH
-# # fi
-
-
-echo "Starting Wordpress"
+echo "Wordpress is ready!"
 exec "$@"

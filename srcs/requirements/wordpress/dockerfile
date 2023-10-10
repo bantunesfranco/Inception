@@ -1,18 +1,32 @@
-FROM debian:buster
+FROM debian:bookworm
 
 EXPOSE 80
 
-RUN apt-get update -y && apt-get upgrade -y
-RUN apt-get install -y php7.3 php7.3-fpm php7.3-mysql curl wget mariadb-client
+ENV WP_TITLE=$WP_TITLE
+ENV WP_ADMIN_USER=$WP_ADMIN_USER
+ENV WP_ADMIN_PASSWORD=$WP_ADMIN_PASSWORD
+ENV WP_ADMIN_EMAIL=$WP_ADMIN_EMAIL
+ENV WP_USER=$WP_USER
+ENV WP_PASSWORD=$WP_PASSWORD
+ENV WP_EMAIL=$WP_EMAIL
+ENV WP_LOCALE=$WP_LOCALE
+ENV WP_VERSION=$WP_VERSION
+ENV DB_HOST=$DB_HOST
 
-COPY ./conf/wp-config.php /wp-config.php
 COPY ./tools/wp.sh /wp.sh
-
 RUN chmod +x /wp.sh
-RUN chmod 777 /wp-config.php
+
+RUN apt-get update -y && apt-get upgrade -y
+RUN apt-get install -y curl mariadb-client php php-fpm php-mysql
+
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+RUN chmod +x wp-cli.phar
+RUN mv ./wp-cli.phar /usr/local/bin/wp
+RUN mkdir -p /var/www/html
+RUN chown -R www-data:www-data /var/www/html
 
 WORKDIR /var/www/html
 
 ENTRYPOINT [ "/wp.sh" ]
 
-CMD ["/usr/sbin/php-fpm7.3", "-F"]
+CMD ["/usr/sbin/php-fpm", "-F"]

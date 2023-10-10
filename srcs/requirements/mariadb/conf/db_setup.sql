@@ -1,6 +1,0 @@
-CREATE DATABASE IF NOT EXISTS inception;
-CREATE USER IF NOT EXISTS 'bfranco'@'localhost' IDENTIFIED BY '1234';
-GRANT ALL PRIVILEGES ON *.* TO 'bfranco'@'localhost';
-FLUSH PRIVILEGES;
-
-ALTER USER 'root'@'localhost' IDENTIFIED BY '1234';
