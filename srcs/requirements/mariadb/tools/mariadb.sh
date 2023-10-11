@@ -1,11 +1,13 @@
 #!/bin/bash
 
-#Starting MariaDB
+mkdir -p /run/mysqld
+touch /run/mysqld/mysqld.sock
+chmod 777 /run/mysqld/mysqld.sock
 
+#Starting MariaDB
 service mariadb start;
 
 # Creating database
-
 echo "SET PASSWORD FOR 'root'@'%' = PASSWORD('$DB_ROOT_PASSWORD');" >> db-setup.sql
 echo "CREATE DATABASE IF NOT EXISTS $DB_NAME;" > db-setup.sql
 echo "CREATE USER IF NOT EXISTS '$DB_USER'@'%' IDENTIFIED BY '$DB_PASSWORD';" >> db-setup.sql

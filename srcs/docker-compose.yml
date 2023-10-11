@@ -62,3 +62,24 @@ services:
       - inception
     restart: on-failure
 
+  # redis:
+  #   depends_on:
+  #     - wordpress
+  #   container_name: redis
+  #   build: ./requirements/bonus/redis
+  #   volumes:
+  #    - wp:/var/www/html
+  #   networks:
+  #     - inception
+  #   restart: on-failure
+  
+  # adminer:
+  #   depends_on:
+  #     - mariadb
+  #   container_name: adminer
+  #   build: ./requirements/bonus/adminer
+  #   ports:
+  #     - 8080:8080
+  #   networks:
+  #     - inception
+  #   restart: on-failure
