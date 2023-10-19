@@ -23,6 +23,8 @@ volumes:
 services:
   mariadb:
     container_name: mariadb
+    image: mariadb
+    hostname: mariadb
     build: ./requirements/mariadb
     ports:
       - 3306:3306
@@ -32,12 +34,14 @@ services:
       - .env
     networks:
       - inception
-    restart: on-failure
+    restart: unless-stopped
 
   wordpress:
     depends_on:
       - mariadb
     container_name: wordpress
+    image: wordpress
+    hostname: wordpress
     build: ./requirements/wordpress
     volumes:
       - wp:/var/www/html
@@ -45,12 +49,14 @@ services:
       - .env
     networks:
       - inception
-    restart: on-failure
+    restart: unless-stopped
 
   nginx:
     depends_on:
      - wordpress
     container_name: nginx
+    image: nginx
+    hostname: nginx
     build: ./requirements/nginx
     ports:
       - 443:443
@@ -60,18 +66,20 @@ services:
       - .env
     networks:
       - inception
-    restart: on-failure
+    restart: unless-stopped
 
-  # redis:
-  #   depends_on:
-  #     - wordpress
-  #   container_name: redis
-  #   build: ./requirements/bonus/redis
-  #   volumes:
-  #    - wp:/var/www/html
-  #   networks:
-  #     - inception
-  #   restart: on-failure
+  redis:
+    depends_on:
+      - wordpress
+    container_name: redis
+    image: redis
+    hostname: redis
+    build: ./requirements/bonus/redis
+    volumes:
+     - wp:/var/www/html
+    networks:
+      - inception
+    restart: unless-stopped
   
   # adminer:
   #   depends_on:
@@ -82,4 +90,4 @@ services:
   #     - 8080:8080
   #   networks:
   #     - inception
-  #   restart: on-failure
+  #   restart: unless-stopped

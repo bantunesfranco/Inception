@@ -1,4 +1,4 @@
-FROM debian:bookworm
+FROM debian:bullseye
 
 EXPOSE 3306
 
@@ -14,7 +14,7 @@ RUN apt-get install -y mariadb-server mariadb-client
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 COPY ./tools/mariadb.sh /mariadb.sh
 
-RUN mkdir /var/log/mysql
+RUN mkdir -p /var/log/mysql
 RUN chown -R mysql:mysql /var/log/mysql
 RUN touch /var/log/mysql/error.log
 RUN chown -R mysql:mysql /var/log/mysql/error.log
