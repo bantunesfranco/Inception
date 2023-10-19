@@ -1,7 +1,7 @@
 FROM debian:bullseye
 
 RUN apt-get update -y && apt-get upgrade -y
-RUN apt-get install -y php7.4 php7.4-fpm php7.4-mysql mariadb-client curl
+RUN apt-get install -y curl mariadb-client php7.4 php7.4-fpm php7.4-mysql
 
 RUN mkdir -p /var/www/html
 RUN chown -R www-data:www-data /var/www/html

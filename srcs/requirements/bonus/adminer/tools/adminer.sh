@@ -2,9 +2,13 @@
 
 mkdir -p /run/php/
 
-curl -o adminer.php https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php
+curl -O https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php
+
+cat adminer-4.8.1.php
 
 mkdir -p /var/www/html
-mv adminer.php /var/www/html/index.php
+chmod 777 adminer-4.8.1.php
+mv adminer-4.8.1.php /var/www/html/index.php
 
+echo "Adminer is ready!"
 exec "$@"
