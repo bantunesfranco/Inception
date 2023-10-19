@@ -15,10 +15,11 @@ COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 COPY ./tools/mariadb.sh /mariadb.sh
 
 RUN mkdir -p /var/log/mysql
-RUN chown -R mysql:mysql /var/log/mysql
-RUN touch /var/log/mysql/error.log
-RUN chown -R mysql:mysql /var/log/mysql/error.log
-RUN chmod 777 /var/log/mysql/error.log
+# RUN chown -R mysql:mysql /var/log/mysql
+RUN chown -R mysql:mysql /var/lib/mysql
+# RUN touch /var/log/mysql/error.log
+# RUN chown -R mysql:mysql /var/log/mysql/error.log
+# RUN chmod 777 /var/log/mysql/error.log
 RUN chmod +x /mariadb.sh
 RUN sed -i 's/bind-address            = 127.0.0.1/bind-address            = 0.0.0.0/g' \
 	/etc/mysql/mariadb.conf.d/50-server.cnf

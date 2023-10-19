@@ -3,11 +3,13 @@ FROM debian:bullseye
 EXPOSE 6379
 
 RUN apt-get update -y && apt-get upgrade -y
-RUN apt install -y redis-server
+RUN apt-get install -y redis-server
 
 COPY ./tools/redis.sh /redis.sh
 RUN chmod +x /redis.sh
 
 ENTRYPOINT [ "/redis.sh" ]
+
+STOPSIGNAL SIGQUIT
 
 CMD ["redis-server", "--protected-mode", "no"]
