@@ -1,0 +1,18 @@
+FROM debian:bullseye
+
+EXPOSE 20 21 30000
+
+ENV FTP_USER=$FTP_USER
+ENV FTP_PASSWORD=$FP_PASSWORD
+
+RUN apt-get update -y && apt-get upgrade -y
+RUN apt-get install -y vsftpd ftp ufw
+
+RUN mkdir -p /var/run/vsftpd
+
+COPY ./tools/ftp.sh /ftp.sh
+RUN chmod +x /ftp.sh
+
+ENTRYPOINT [ "/ftp.sh" ]
+
+CMD [ "/usr/sbin/vsftp", "/etc/vsftpd/vsftpd.conf" ]
