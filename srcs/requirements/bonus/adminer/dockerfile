@@ -1,7 +1,9 @@
 FROM debian:bullseye
 
+EXPOSE 8080
+
 RUN apt-get update -y && apt-get upgrade -y
-RUN apt-get install -y curl mariadb-client php7.4 php7.4-fpm php7.4-mysql
+RUN apt-get install -y wget mariadb-client php7.4 php7.4-fpm php7.4-mysql
 
 RUN mkdir -p /var/www/html
 RUN chown -R www-data:www-data /var/www/html
@@ -10,8 +12,10 @@ RUN mkdir -p /run/php
 COPY ./tools/adminer.sh /adminer.sh
 RUN chmod +x /adminer.sh
 
-RUN sed -i 's/listen = \/run\/php\/php7.4-fpm.sock/listen = 9000/g' /etc/php/7.4/fpm/pool.d/www.conf
+RUN sed -i 's/listen = \/run\/php\/php7.4-fpm.sock/listen = 8080/g' /etc/php/7.4/fpm/pool.d/www.conf
 
-ENTRYPOINT [ "./adminer.sh" ]
+WORKDIR /var/www/html
+
+ENTRYPOINT [ "/adminer.sh" ]
 
 CMD ["/usr/sbin/php-fpm7.4", "-F"]
