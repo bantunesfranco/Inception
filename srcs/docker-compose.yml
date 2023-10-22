@@ -89,3 +89,14 @@ services:
     networks:
       - inception
     restart: unless-stopped
+  
+  # ftp:
+  #   depends_on:
+  #     - wordpress
+  #   container_name: ftp
+  #   build: ./requirements/bonus/ftp
+  #   volumes:
+  #     - wp:/var/www/html
+  #   networks:
+  #     - inception
+  #   restart: unless-stopped
