@@ -1,0 +1,18 @@
+FROM debian:bullseye
+
+EXPOSE 9999
+
+RUN apt-get update -y && apt-get upgrade -y
+
+RUN mkdir -p /var/www/html
+RUN chown -R www-data:www-data /var/www/html
+
+COPY ./conf/static_page.html /var/www/html/index.html
+COPY ./conf/static.sh /static.sh
+RUN chmod +x /static.sh
+
+WORKDIR /var/www/html
+
+ENTRYPOINT [ "/static.sh" ]
+
+CMD ["/usr/sbin/php-fpm7.4", "-F"]
