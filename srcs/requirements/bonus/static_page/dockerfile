@@ -3,14 +3,15 @@ FROM debian:bullseye
 EXPOSE 9999
 
 RUN mkdir -p /app/srcs
-COPY ./conf/server.js /app/server.js
-COPY ./conf/static.html /app/srcs/index.html
-
 RUN apt-get update -y && apt-get upgrade -y
 RUN apt-get install -y npm curl nodejs
 
 WORKDIR /app
 
 RUN npm init -y && npm install express --save -y
+
+COPY ./conf/server.js /app/server.js
+COPY ./conf/static.html /app/srcs/index.html
+
 
 CMD ["node", "server.js"]

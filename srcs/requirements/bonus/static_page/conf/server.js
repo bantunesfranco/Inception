@@ -5,5 +5,5 @@ const port = 3000;
 app.use('/static', express.static('/app/srcs'));
 
 app.listen(port, () => {
-    console.log("App listening at http://localhost:${port}");
+    console.log("Server is running on port " + port + "...");
 });
