@@ -2,17 +2,15 @@ FROM debian:bullseye
 
 EXPOSE 9999
 
+RUN mkdir -p /app/srcs
+COPY ./conf/server.js /app/server.js
+COPY ./conf/static.html /app/srcs/index.html
+
 RUN apt-get update -y && apt-get upgrade -y
+RUN apt-get install -y npm curl nodejs
 
-RUN mkdir -p /var/www/html
-RUN chown -R www-data:www-data /var/www/html
+WORKDIR /app
 
-COPY ./conf/static_page.html /var/www/html/index.html
-COPY ./conf/static.sh /static.sh
-RUN chmod +x /static.sh
+RUN npm init -y && npm install express --save -y
 
-WORKDIR /var/www/html
-
-ENTRYPOINT [ "/static.sh" ]
-
-CMD ["/usr/sbin/php-fpm7.4", "-F"]
+CMD ["node", "server.js"]
