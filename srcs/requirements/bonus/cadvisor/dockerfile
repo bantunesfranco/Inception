@@ -1,0 +1,15 @@
+FROM debian:bullseye
+
+EXPOSE 8888
+
+RUN apt-get update -y && apt-get upgrade -y
+RUN apt-get install -y wget
+RUN wget https://github.com/google/cadvisor/releases/download/v0.37.0/cadvisor
+RUN chmod +x cadvisor
+
+COPY ./tools/cadvisor.sh /cadvisor.sh
+RUN chmod +x /cadvisor.sh
+
+ENTRYPOINT [ "/cadvisor.sh" ]
+
+CMD [ "./cadvisor"]

@@ -113,3 +113,20 @@ services:
     networks:
       - inception
     restart: unless-stopped
+  
+  cadvisor:
+    container_name: cadvisor
+    image: cadvisor
+    hostname: cadvisor
+    build: ./requirements/bonus/cadvisor
+    ports:
+      - 8080:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    networks:
+      - inception
+    restart: unless-stopped
