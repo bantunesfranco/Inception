@@ -4,7 +4,7 @@ EXPOSE 20 21
 EXPOSE 30000-30010
 
 ENV FTP_USER=$FTP_USER
-ENV FTP_PASSWORD=$FP_PASSWORD
+ENV FTP_PASSWORD=$FTP_PASSWORD
 
 RUN apt-get update -y && apt-get upgrade -y
 RUN apt-get install -y vsftpd ftp
@@ -18,4 +18,4 @@ RUN chmod 777 /vsftpd.conf
 
 ENTRYPOINT [ "/ftp.sh" ]
 
-CMD [ "/usr/sbin/vsftp", "-c", "/etc/vsftpd.conf" ]
+CMD [ "/usr/sbin/vsftpd", "/etc/vsftpd.conf" ]
