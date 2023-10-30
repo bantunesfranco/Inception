@@ -130,7 +130,7 @@ services:
     hostname: cadvisor
     build: ./requirements/bonus/cadvisor
     ports:
-      - 8080:8080
+      - 8888:8888
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:ro

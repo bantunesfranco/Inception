@@ -4,12 +4,12 @@ EXPOSE 8888
 
 RUN apt-get update -y && apt-get upgrade -y
 RUN apt-get install -y wget
-RUN wget https://github.com/google/cadvisor/releases/download/v0.37.0/cadvisor
+RUN wget -O cadvisor https://github.com/google/cadvisor/releases/download/v0.47.2/cadvisor-v0.47.2-linux-amd64
 RUN chmod +x cadvisor
 
 COPY ./tools/cadvisor.sh /cadvisor.sh
 RUN chmod +x /cadvisor.sh
 
-ENTRYPOINT [ "/cadvisor.sh" ]
+# ENTRYPOINT [ "/cadvisor.sh" ]
 
-CMD [ "./cadvisor"]
+CMD [ "./cadvisor", "--port", "8888"]
