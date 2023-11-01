@@ -20,6 +20,13 @@ volumes:
       o: bind
       device: /home/bfranco/data/db
 
+  nginx:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/bfranco/data/nginx
+
 services:
   mariadb:
     container_name: mariadb
@@ -62,6 +69,7 @@ services:
       - 443:443
     volumes:
       - wp:/var/www/html
+      - nginx:/etc/nginx
     env_file:
       - .env
     networks:
@@ -105,8 +113,14 @@ services:
     build: ./requirements/bonus/ftp
     volumes:
       - wp:/var/www/html
+      - nginx:/etc/nginx
     env_file:
       - .env
+    ports:
+      - 20:20
+      - 21:21
+      - 22:22
+      - 30000-30010:30000-30010
     networks:
       - inception
     restart: unless-stopped

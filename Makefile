@@ -22,6 +22,7 @@ rebuild :
 prune:
 	@rm -rf /home/bfranco/data/db/*
 	@rm -rf /home/bfranco/data/wp/*
+	@rm -rf /home/bfranco/data/nginx/*
 	@docker system prune -af
 
 ssh:
