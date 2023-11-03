@@ -112,14 +112,13 @@ services:
     hostname: ftp
     build: ./requirements/bonus/ftp
     volumes:
-      - wp:/var/www/html
+      - wp:/home/$FTP_USER/ftp
       - nginx:/etc/nginx
     env_file:
       - .env
     ports:
       - 20:20
       - 21:21
-      - 22:22
       - 30000-30010:30000-30010
     networks:
       - inception

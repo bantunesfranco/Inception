@@ -1,3 +1,5 @@
 #!/bin/bash
 
-exec "$@" --port 8888
+touch /dev/kmsg
+
+exec "$@"

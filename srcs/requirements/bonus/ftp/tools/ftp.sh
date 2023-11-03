@@ -11,7 +11,7 @@ if [ ! -f /etc/vsftpd.conf.bak ]; then
         adduser $FTP_USER --disabled-password --gecos ""
         echo "$FTP_USER:$FTP_PASSWORD" | chpasswd
 
-        chown -R "$FTP_USER":"$FTP_USER" /var/www/html
+        chown -R "$FTP_USER":"$FTP_USER" /home/"$FTP_USER"/ftp
         echo $FTP_USER >> /etc/vsftpd.userlist
     fi
 fi

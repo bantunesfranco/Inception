@@ -9,7 +9,7 @@ ENV FTP_PASSWORD=$FTP_PASSWORD
 RUN apt-get update -y && apt-get upgrade -y
 RUN apt-get install -y vsftpd ftp
 
-RUN mkdir -p /var/run/vsftpd
+RUN mkdir -p /var/run/vsftpd/empty
 
 COPY ./tools/ftp.sh /ftp.sh
 COPY ./conf/vsftpd.conf /vsftpd.conf
