@@ -1,5 +1,5 @@
 
-all : up
+all : install up
 
 up :
 	@docker-compose -f ./srcs/docker-compose.yml up
@@ -27,5 +27,17 @@ prune:
 
 ssh:
 	ssh bfranco@localhost -p 2222
+
+install:
+	cat example_env > ./srcs/.env
+	@mkdir -p /home/bfranco/data/db
+	@mkdir -p /home/bfranco/data/wp
+	@mkdir -p /home/bfranco/data/nginx
+
+uninstall:
+	@rm -rf ./srcs/.env
+	@rm -rf /home/bfranco/data/db
+	@rm -rf /home/bfranco/data/wp
+	@rm -rf /home/bfranco/data/nginx
 
 .PHONY: all up down build rebuild
