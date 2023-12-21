@@ -29,7 +29,7 @@ ssh:
 	ssh bfranco@localhost -p 2222
 
 install:
-	cat example_env > ./srcs/.env
+	@cat example_env > ./srcs/.env
 	@mkdir -p /home/bfranco/data/db
 	@mkdir -p /home/bfranco/data/wp
 	@mkdir -p /home/bfranco/data/nginx
